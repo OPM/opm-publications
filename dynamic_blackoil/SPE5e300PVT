@@ -1,0 +1,144 @@
+-- This reservoir simulation deck is made available under the Open Database
+-- License: http://opendatacommons.org/licenses/odbl/1.0/. Any rights in
+-- individual contents of the database are licensed under the Database Contents
+-- License: http://opendatacommons.org/licenses/dbcl/1.0/
+
+--  Copyright (C) 2020 NORCE 
+
+-- This is the dataset used for the example in:
+-- Sandve, T.H., Sævareid, O. & Aavatsmark, I. Dynamic PVT model for CO2-EOR black-oil 
+-- simulations. Comput Geosci (2022). https://doi.org/10.1007/s10596-022-10133-x
+
+-- Confirm number of components
+NCOMPS
+7
+/
+-- Specify which equation of state is to be used
+EOS
+PR
+/
+--Request modified Peng-Robinson EoS
+PRCORR
+-- Specify standard conditions
+STCOND
+59.0 14.695948775 -- (F) , (psi)
+/
+-- Specify Reservoir Temperature (C)
+RTEMP
+159.9980/ -- (F)
+-- Component names
+CNAMES
+CO2
+C1
+C3
+N-C6
+N-C10
+N-C15
+N-C20
+/
+-- Molecular weights
+MW
+44.0094
+16.0425
+44.0956
+86.1753
+142.2815
+212.4142
+282.5469
+/
+-- Critical Temperatures (K)
+TCRIT
+547.4412 -- (R) = (K)*1.8
+343.0152
+665.802
+914.022
+1111.914
+1274.22
+1381.5
+/
+-- Critical Pressures (BARA)
+PCRIT
+1070.1319402933 -- (psi)
+667.0575633678
+616.5844306378
+439.8994585351
+305.4494756594
+214.5108141027
+155.1903793711
+/
+
+-- Acentric factor
+ACF
+0.22492
+0.011406
+0.1521
+0.2986
+0.4896
+0.6955
+0.8913
+/
+
+--Overrides default Omega A values
+OMEGAA
+0.457236  
+0.457236  
+0.457236  
+0.457236  
+0.457236 
+0.457236  
+0.457236 
+/
+
+--Overrides default Omega B values
+OMEGAB
+0.0777961
+0.0777961
+0.0777961
+0.0777961
+0.0777961
+0.0777961
+0.0777961
+/
+
+--Critical Z-factors
+ZCRIT
+0.275
+0.286
+0.28
+0.26
+0.26
+0.24
+0.22
+/
+
+--Binary interaction coefficients
+BIC
+0.1209
+0.1310 0.0339
+0.1141 0.0321  0.0094
+0.1027 0.0407  0.0145 -0.0009
+0.0871 0.0442  0.0110 -0.0068 -0.0023
+0.0646 0.0408 -0.0021 -0.0202 -0.0110 -0.0031
+/
+
+ZMFVD
+  1.00000000
+0.0
+0.50
+0.03
+0.07
+0.20
+0.15
+0.05
+  8425.00000
+0.0
+0.50
+0.03
+0.07
+0.20
+0.15
+0.05
+/
+
+
+ 
