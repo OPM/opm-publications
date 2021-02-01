@@ -19,19 +19,22 @@ The authors holds copyright to all contents.
 
 ## Content: 
 
-# Copy these files to the INCLUDE directory in the Norne model 
-# They add solvent related keywords with CO2 properties to the deck
-CO2INJ.SCH 
-co2_misc.inc
-co2_prop_mod.inc
-GASINJ.SCH
+The following files needs to be copied to the INCLUDE directory in the Norne model. They add solvent related keywords with CO2 properties to the deck.
 
-# python scripts to handle ensemble of models. 
-# probably need some hand tuning to make it work for your case 
-distToddLong.py 
-modifyDataFile.py
-plotEnsambles.py
-runtimeEnsambles.py
+Note that in OPM Flow SWOF and SGOF can be combined with SOF2. I.e. no need to convert them into SWFN, SGFN and SOF3. 
+
+* CO2INJ.SCH 
+* co2_misc.inc
+* co2_prop_mod.inc
+* GASINJ.SCH
+
+The folder also includes some python scripts to run the ensembles. 
+They are uploaded as is and will need some hand to make it work on your system. 
+
+* distToddLong.py 
+* modifyDataFile.py
+* plotEnsambles.py
+* runtimeEnsambles.py
 
 
 
