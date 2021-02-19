@@ -43,10 +43,10 @@ The opm webpage also has instruction for instalation on other systems.
 You can select the three items and press "Download selected". Unzip the ```download.zip``` file, and all the included ```.zip``` files,  in the current ```sleipner``` directory,
 Move the following files/directories to the current folder
 * ```Sleipner_Reference_Model_2019_Grid/data/Sleipner_Reference_Model.grdecl``` 
-* ```feeders/data Main_feeder_chimney'''
-* ```feeders/data NE_feeder_L5_L6_low_confidence'''
-* ```feeders/data SW_feeder_L7_L8_low_confidence'''
-* ```sleipner_plumes_boundaries/Sleipner_Plumes_Boundaries''' 
+* ```feeders/data/Main_feeder_chimney```
+* ```feeders/data/NE_feeder_L5_L6_low_confidence```
+* ```feeders/data/SW_feeder_L7_L8_low_confidence```
+* ```sleipner_plumes_boundaries/Sleipner_Plumes_Boundaries``` 
 
 ## Splitting the grid file
 The grid file needs to be split before usage:
@@ -112,4 +112,4 @@ See *ert --h* and the ERT manual for how to configure ERT and use other history-
 
 ## Running on a cluster
 
-In order to run the ensemble on a cluster, you will need to modify the
+In order to run the ensemble on a cluster, you will need to modify the file sleipner.ert and specify the correct QUEUE_SYSTEM variable to either SLURM or LSF. Consult the ERT documentation for specific information for each queuing system.
