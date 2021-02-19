@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 
 path = "output/simulations/runpath/"
 
-filename = "FEADERS.INC"
-figname = "ensembleFeaders"
+filename = "FEEDERS.INC"
+figname = "ensembleFeeders"
 permstr = "PERMZ"
 numLayers = 10
 

@@ -18,7 +18,7 @@ ENSPATH      output/storage
 ECLBASE   SLEIPNER%d
 DATA_FILE SLEIPNER_ORG.DATA
 
-GEN_KW FEADERS feaders.tmpl   FEADERS.INC  feaders.txt
+GEN_KW FEEDERS feeders.tmpl   FEEDERS.INC  feeders.txt
 GEN_KW TEMPZ rtempvd.tmpl   RTEMPVD.INC  rtempvd.txt
 GEN_KW PERMX permx.tmpl   PERMX.INC  permx.txt
 

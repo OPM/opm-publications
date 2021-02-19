@@ -40,7 +40,7 @@ grid = EclGrid.load_from_grdecl(gridname)
 rst = EclFile(rstname)
 sgas2010 = rst.restart_get_kw( "SGAS" , datetime.datetime( 2010 , 12 , 1 ))
 doPlot = True
-feaderpath = 'Sleipner_Plumes_Boundaries/data/'
+feederpath = 'Sleipner_Plumes_Boundaries/data/'
 
 for layer in range(numLayers):
   legend = []
@@ -90,11 +90,11 @@ for layer in range(numLayers):
           plt.gca().set_aspect('equal', adjustable='box')
           legend.append("sim" + str(len(legend)))
 
-  feadername = feaderpath + "L" + str(layer+1)
-  feadertxt = np.genfromtxt(feadername, skip_header=16, dtype=(np.float, np.float, np.float, np.int))
+  feedername = feederpath + "L" + str(layer+1)
+  feedertxt = np.genfromtxt(feedername, skip_header=16, dtype=(np.float, np.float, np.float, np.int))
   for i in range(4):
     coords = []
-    for line in feadertxt:
+    for line in feedertxt:
       if (line[3]==i):
         coords.append((line[0],line[1]))
  

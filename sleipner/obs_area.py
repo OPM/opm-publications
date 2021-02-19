@@ -3,17 +3,17 @@ import numpy as np
 from shapely.geometry import Polygon
 
 ## computes the areas of the observed plumes
-feaderpath = 'Sleipner_Plumes_Boundaries/data/'
+feederpath = 'Sleipner_Plumes_Boundaries/data/'
 numLayers = 9
 filename = 'plume_obs_data.txt'
 areas = []
 for layer in range(numLayers):
-  feadername = feaderpath + "L" + str(layer+1)
-  feadertxt = np.genfromtxt(feadername, skip_header=16, dtype=(np.float, np.float, np.float, np.int))
+  feedername = feederpath + "L" + str(layer+1)
+  feedertxt = np.genfromtxt(feedername, skip_header=16, dtype=(np.float, np.float, np.float, np.int))
   poly = Polygon([])
   for i in range(4):
     coords = []
-    for line in feadertxt:
+    for line in feedertxt:
       if (line[3]==i):
         coords.append((line[0],line[1]))
     

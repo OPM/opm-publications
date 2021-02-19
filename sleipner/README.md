@@ -2,7 +2,7 @@
 
 This folder contains the necessary input for reproducing the history matching as presented at 
 the IEAGHG Webinar Sleipner Benchmark study, 25th February 2021.
-The three type of parameters we tried to match was the feader permeability, the layer permeability and the temperature on the top. The history matching is done using ERT and the Flow simulator.
+The three type of parameters we tried to match was the feeder permeability, the layer permeability and the temperature on the top. The history matching is done using ERT and the Flow simulator.
 
 Data files in this folder is made available under the Open Database
 License: http://opendatacommons.org/licenses/odbl/1.0/. Any rights in
@@ -59,21 +59,21 @@ python splitGridFile.py
 For the history matching we use the build-in functionality in ERT to represent the uncertainty in the parameters.
 The permeabilities is assumed to have a lognormal distribution with
 
-  X  | utsira    | shale       | feaders
+  X  | utsira    | shale       | feeders
   -- | --------- | --------- |  --------
  mean| log(2000) | (log(0.001) | log(1)
  std | 0.4       | 0.4         | log(100)
 
-The scripts **feader.py** and **layerPermeability.py**
+The scripts **feeder.py** and **layerPermeability.py**
 is used to set up the input permeabilities for the ERT. Simply run them as follows
 
 ```bash
-python feader.py
+python feeder.py
 python layerPermeability.py
 ```
 
 These scripts will create
-*feaders.tmpl*, *feaders.txt*, *permx.tmpl* and *permx.txt*
+*feeders.tmpl*, *feeders.txt*, *permx.tmpl* and *permx.txt*
 that are used to configure ERT.
 
 The top temperature we use a normal distribution with mean 34C and standard deviation 3C
