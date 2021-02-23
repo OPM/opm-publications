@@ -2,7 +2,9 @@
 
 This folder contains the necessary input for reproducing the history matching as presented at 
 the IEAGHG Webinar Sleipner Benchmark study, 25th February 2021.
-The three type of parameters we tried to match was the feeder permeability, the layer permeability and the temperature on the top. The history matching is done using ERT and the Flow simulator.
+The three type of parameters we tried to match was the feeder permeability, the layer permeability and the temperature on the top. 
+The plume area at the top of each layer is used as the history matching data. 
+The history matching is done using ERT and the Flow simulator.
 
 Data files in this folder is made available under the Open Database
 License: http://opendatacommons.org/licenses/odbl/1.0/. Any rights in
@@ -34,14 +36,16 @@ You can install Flow from binary packages on Ubuntu Linux 16.04 or 18.04 and Red
 Installing instruction is found here: https://opm-project.org/?page_id=245
 The opm webpage also has instruction for instalation on other systems. 
 
-## Download the following files from Sleipner benchmark
-(https://co2datashare.org/dataset/sleipner-2019-benchmark-model)
+## Downloading files from the Sleipner benchmark
+
+Go to https://co2datashare.org/dataset/sleipner-2019-benchmark-model
+and download the following files:
 * Sleipner_Reference_Model.grdecl ("Sleipner Reference Model 2019 Grid")
 * Feeder data ("Feeders")
 * Sleipner plume boundaries ("Sleipner plume boundaries")
 
 You can select the three items and press "Download selected". Unzip the ```download.zip``` file, and all the included ```.zip``` files,  in the current ```sleipner``` directory,
-Move the following files/directories to the current folder
+Move the following files/directories to your current folder
 * ```Sleipner_Reference_Model_2019_Grid/data/Sleipner_Reference_Model.grdecl``` 
 * ```feeders/data/Main_feeder_chimney```
 * ```feeders/data/NE_feeder_L5_L6_low_confidence```
@@ -49,11 +53,13 @@ Move the following files/directories to the current folder
 * ```sleipner_plumes_boundaries/Sleipner_Plumes_Boundaries``` 
 
 ## Splitting the grid file
-The grid file needs to be split before usage:
-
+The grid file needs to be split before usage.
+This can be done using the included python script
 ```bash
 python splitGridFile.py
 ```
+This script will create ```Sleipner_Reference_Model_cleaned.grdecl``` with only the grid data
+and ```PORO.INC``` with the porosity.
 
 ## Setting up the history matching
 For the history matching we use the build-in functionality in ERT to represent the uncertainty in the parameters.
@@ -76,11 +82,13 @@ These scripts will create
 *feeders.tmpl*, *feeders.txt*, *permx.tmpl* and *permx.txt*
 that are used to configure ERT.
 
-The top temperature we use a normal distribution with mean 34C and standard deviation 3C
-and specified in
-*rtempvd.tmpl* and *rtempvd.txt*
+For the top temperature at 800m depth we use a normal distribution with mean 34C and standard deviation 3C
+as specified in
+*rtempvd.tmpl* and *rtempvd.txt* 
+The temperature at 1000m depth is set to 41C. The temperature of these two depths defines the temperature gradient
+in the reservoir. 
 
-The history matching uses the CO2 plume contour areas in the layers. To compute the observed areas the script
+The history matching uses the CO2 plume contour areas at the top of each layer. To compute the observed areas the script
 **obs_area.py**
 needs to be run:
 
@@ -90,8 +98,9 @@ python obs_area.py
 
 This will generate a ```plume_obs_data.txt``` file with the areas computed from the polygons with 10% uncertainty in data.
 
-The final setup step is to setup the ERT file
-The
+The file **area_eval.py** is called by ERT automaticly after each simulation is finished to compute the contour area at the top of each layer.  
+
+The final setup step is to setup the ERT file. The 
 **sleipner.ert**
 file is a good starting point but needs to be adjusted with your own paths and configuration. Look for "replace_with_absolute_path" in the file. You can also adjust the number of ensemble members in this file. For debugging, it is probably a good idea to reduce the number of ensemble members to get a faster runtime (but lower accuracy, of course).
 
