@@ -1,0 +1,48 @@
+-- This ert configuration file setup and run a history matching on the sleipner model
+-- using the open source flow simulator
+--
+-- The file needs to be configured with your paths and setup 
+-- Look for "replace_with_absolute_path"
+-- 
+-- export PYTHONIOENCODING=utf-8 
+
+NUM_REALIZATIONS 50
+
+QUEUE_SYSTEM LOCAL
+-- This will run 8 ensembles in parallel
+QUEUE_OPTION LOCAL MAX_RUNNING 8
+
+RUNPATH      output/simulations/runpath/realisation-%d/iter-%d
+ENSPATH      output/storage
+
+ECLBASE   SLEIPNER%d
+DATA_FILE SLEIPNER_ORG.DATA
+
+GEN_KW FEEDERS feeders.tmpl   FEEDERS.INC  feeders.txt
+GEN_KW TEMPZ rtempvd.tmpl   RTEMPVD.INC  rtempvd.txt
+GEN_KW PERMX permx.tmpl   PERMX.INC  permx.txt
+
+OBS_CONFIG observations
+TIME_MAP time_map
+
+-- This job will copy the file to the runpath folder.
+-- NB need to use the full path  
+SIMULATION_JOB COPY_FILE /replace_with_absolute_path/opm-publications/sleipner/FIPNUM.INC
+SIMULATION_JOB COPY_FILE /replace_with_absolute_path/opm-publications/sleipner/Sleipner_Reference_Model_cleaned.grdecl
+SIMULATION_JOB COPY_FILE /replace_with_absolute_path/opm-publications/sleipner/SUMMARY.INC
+SIMULATION_JOB COPY_FILE /replace_with_absolute_path/opm-publications/sleipner/SCHEDULE.INC
+SIMULATION_JOB COPY_FILE /replace_with_absolute_path/opm-publications/sleipner/PORO.INC
+SIMULATION_JOB COPY_FILE /replace_with_absolute_path/opm-publications/sleipner/SleipnerRefModel_GridLayers.txt
+
+-- This forward model job requires that you have flow with mpi enabled
+-- -np 8 tells flow to run with 8 cores 
+-- you will need to add your path to the flow simulator if you 
+-- have not installed it. 
+-- run time options can be added using "--options-to-flow=foo"   
+INSTALL_JOB mpirunner MPIRUN
+SIMULATION_JOB mpirunner -np 8 flow <ECLBASE> "--solver-max-time-step-in-days=3" "--tolerance-mb=1e-5"
+
+-- After the simulations are done areas will be computed using AREA_EVAL and compared with the observed areas. 
+INSTALL_JOB area_eval AREA_EVAL
+SIMULATION_JOB area_eval <ECLBASE>
+GEN_DATA PLUME_RES RESULT_FILE:plume_areas_%d.out REPORT_STEPS:0 INPUT_FORMAT:ASCII

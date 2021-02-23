@@ -1,0 +1,5 @@
+GENERAL_OBSERVATION PLUME_OBS {
+   DATA       = PLUME_RES;
+   RESTART    = 0;
+   OBS_FILE   = plume_obs_data.txt;
+};
