@@ -81,15 +81,24 @@ ROCK
 1.0e+01 1.6e-06
 /
 
-SOF2
-0.0 0.0
-1.0 1.0
-/
 
-SGFN
-0.0 0.0 0.0
-1.0 1.0 0.0
-/
+-- Brooks-Corey with coefficient 2.8 and
+-- entry pressure 2.5kPa (Cavanagh. A. 2013)
+SGOF
+-- Column 1: gas saturation
+-- Column 2: gas relative permeability
+-- Column 3: oil relative permeability when oil, gas and connate water are present
+-- Column 4: oil-gas capillary pressure
+0.0	0.0	1.0 	0.025
+0.1	0.0     0.740	0.026
+0.2	0.009	0.528	0.027
+0.3	0.030	0.359	0.028
+0.4	0.070	0.230	0.030
+0.5	0.136	0.136	0.032
+0.6	0.230	0.070	0.035
+0.7	0.359	0.030	0.038
+0.8	0.528	0.009	0.044
+0.9	0.740	0.000	0.057 /
 
 SALINITY
  0.7 / --35-40g/l  -> 35-40g /kg -> 0.63-0.72 mol/g
