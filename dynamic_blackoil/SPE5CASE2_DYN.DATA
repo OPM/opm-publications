@@ -1,0 +1,28 @@
+-- This reservoir simulation deck is made available under the Open Database
+-- License: http://opendatacommons.org/licenses/odbl/1.0/. Any rights in
+-- individual contents of the database are licensed under the Database Contents
+-- License: http://opendatacommons.org/licenses/dbcl/1.0/
+
+--  Copyright (C) 2020 NORCE 
+
+-- This is the dataset used for the example in:
+-- Sandve, T.H., Sævareid, O. & Aavatsmark, I. Dynamic PVT model for CO2-EOR black-oil 
+-- simulations. Comput Geosci (2022). https://doi.org/10.1007/s10596-022-10133-x
+
+RUNSPEC
+
+TITLE
+   SPE5 - CO2EOR - CASE 2
+
+INCLUDE
+  'SPE5_DYN.BASE' /
+
+INCLUDE
+ 'SPE5CASE2_WELL.BASE' /
+ 
+WSOLVENT
+'INJG'  1.0/
+/
+
+INCLUDE
+ 'SPE5CASE2.SCH'/

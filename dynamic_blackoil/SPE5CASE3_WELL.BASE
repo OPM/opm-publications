@@ -1,0 +1,21 @@
+-- This reservoir simulation deck is made available under the Open Database
+-- License: http://opendatacommons.org/licenses/odbl/1.0/. Any rights in
+-- individual contents of the database are licensed under the Database Contents
+-- License: http://opendatacommons.org/licenses/dbcl/1.0/
+
+--  Copyright (C) 2020 NORCE 
+
+-- This is the dataset used for the example in:
+-- Sandve, T.H., Sævareid, O. & Aavatsmark, I. Dynamic PVT model for CO2-EOR black-oil 
+-- simulations. Comput Geosci (2022). https://doi.org/10.1007/s10596-022-10133-x
+
+WCONPROD
+-- Item #:1	2      3     4	   5  9
+	'PROD' 'OPEN' 'ORAT' 12000 4* 1000 /
+/
+
+WCONINJE
+-- Item #:1	 2	 3	 4	5      6  7
+	'INJW'	'WATER'	'OPEN'	'RATE'	45000 1* 2800 /
+	'INJG'	'GAS'	'OPEN'	'RATE'	30000 1* 2800 /
+/
