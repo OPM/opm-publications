@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Feb 18 13:59:49 2022
+Module for calculating effective permeability of deformation bands. See the
+paper
 
-@author: bergeru
+Berge et.al. "Impact of deformation bands on fault-related fluid flow in
+field-scale simulations""
+
+for details.
+
+@author: Runar L. Berge
 """
 
 import numpy as np
@@ -24,7 +30,7 @@ def effective_permeability_layered(rho_x, Kb_aKm, band_length, sigma):
         Scaled permeability ratio between deformation bands and host rock.
     band_length : float or array
         Length of deformation bands.
-    sigma : TYPE
+    sigma : float
         Standard deviation of deformation band rotation.
 
     Returns
@@ -58,8 +64,7 @@ def effective_permeability_layered(rho_x, Kb_aKm, band_length, sigma):
     Kf = 1 / (1 + Kb_aKm**-1 * rho_x)
     Kx = (Kf * Axb + Axm) / Y
 
-    # permeability y-direction
-    
+    # permeability y-direction    
     X = Ayb + Aym
     Kf = 1 / (1 + Kb_aKm**-1 * rho_y * np.sin(theta))
 
@@ -69,33 +74,6 @@ def effective_permeability_layered(rho_x, Kb_aKm, band_length, sigma):
     Kx[rho_x < 0] = 1
     Ky[rho_x < 0] = 1
     return Kx, Ky
-
-
-def effective_permeability_harmonic(rho_x, Kb_aKm, sigma):
-    """
-    Calculate the effective permeability using a layered model.
-
-    Parameters
-    ----------
-    rho_x : float or array
-        Density of deformation bands along a scanline in x-direction
-    Kb_aKm : float
-        Scaled permeability ratio between deformation bands and host rock.
-    sigma : TYPE
-        Standard deviation of deformation band rotation.
-
-    Returns
-    -------
-    Kx : float or array
-        Effective permeability in x-direction.
-    Ky : float or array
-        Effective permeability in y-direction.
-
-    """
-    theta = sigma * np.sqrt(2) / np.sqrt(np.pi)
-    Kxh = 1 / (1 + Kb_aKm**-1 * rho_x)
-    Kyh = 1 / (1 + Kb_aKm**-1 * rho_x * np.sin(theta) / np.cos(theta))
-    return Kxh, Kyh
 
 
 def damage_zone_permeability(throw=None, W5=None, Kb_aKm=1e-1, band_length=2, sigma=np.pi/12, nbins=100):
@@ -136,6 +114,7 @@ def damage_zone_permeability(throw=None, W5=None, Kb_aKm=1e-1, band_length=2, si
 def damage_zone_width(throw):
     # Estimate damage zone width from throw. Average value from Schueller (2013), Fig 6
     return 1.74 * throw ** 0.43
+
 
 def damage_zone_width_full(throw):
     # Estimate damage zone width from throw. Average value from Schueller (2013), Fig 6

@@ -1,4 +1,4 @@
-Instruction on how to reproduce field-scale simulation results using the Sleipner Dataset for
+Instruction on how to reproduce field-scale simulation results using the Smeaheia Dataset for
 the paper **"Impact of deformation bands on fault-related fluid flow in field-scale simulations."**
 
 ## The Smeaheia Dataset
