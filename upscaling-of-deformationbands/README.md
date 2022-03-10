@@ -26,17 +26,13 @@ A summary of the license is available here:
 The following python packages are needed:
 * joblib
 * time
-* os
 * sys
 * matplotlib
 * numpy
 * opm
 * scipy
-* porepy
-* pandas
 * os
-* numpy
-* utils
+
 
 ```bash
 # Create virtual environment
