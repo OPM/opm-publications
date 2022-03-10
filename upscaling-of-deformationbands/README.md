@@ -22,7 +22,7 @@ A summary of the license is available here:
 
    https://co2datashare.org/view/license/26af9426-203f-4993-9d41-2e1bf191ceaf
 
-## Required python3 packages
+## Installation
 The following python packages are needed:
 * joblib
 * time
@@ -34,23 +34,28 @@ The following python packages are needed:
 * os
 
 
+We recommend installing in virtual environment using pip
 ```bash
 # Create virtual environment
 python -m venv .venv
 # Activate virtual environment
 source .venv/bin/activate
+# installing joblib
+pip install joblib
+# installing opm including the simulator Flow
+pip install opm
+# etc.
 ```
-## Installation of flow
-
-
-
-See https://opm-project.org.
+For newer versions of flow see https://opm-project.org.
 
 ## Run the simulations
 1. Unzip ```GRID.ZIP``` to ```GRID.INC``` and ```SMEAHEIA_EGRID.ZIP``` to ```SMEAHEIA.EGRID```
 2. Create directory ```input``` and ```output```
 3. Set flow install path in ```run_flow_smeaheia.py``` and adjust parallel setup in the run script
 4. Run ```run_flow_smeaheia.py```
+
+Note that the script takes some time to run due to slow and unoptimized  upscaling routines in
+```analytical_effective_perm.py```. 
 
 ## List of files
 * ```run_flow_smeaheia.py ``` script to run the simulations
