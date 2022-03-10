@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import numpy as np
-from analytical_effective_perm import damage_zone_width
 from analytical_effective_perm import damage_zone_permeability
 from analytical_effective_perm import damage_zone_width_full
 from opm.io.ecl import EGrid
