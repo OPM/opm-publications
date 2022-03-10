@@ -1,9 +1,7 @@
 from joblib import Parallel, delayed
 import time
 import os
-import sys
 from matplotlib import pyplot as plt
-import numpy as np
 from opm.io.ecl import ESmry
 
 
