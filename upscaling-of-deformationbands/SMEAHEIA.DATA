@@ -1,0 +1,403 @@
+RUNSPEC
+TITLE
+CO2 storage simulation on Smeaheia
+--
+-- Pore volume multipliers in North and South
+--
+-- Run details
+--  Dissolved gas: NO
+--  Pc: NO
+--  Rel.perm: Linear, Sor=0.15, Sgr=0.05
+ 
+ 
+ 
+NOECHO
+ 
+DIMENS
+-- Grid Dimensions
+-- NX	NY	NZ
+-- ------  --------  ------
+   109 253 27  /
+ 
+-- Active Phases Present
+OIL
+GAS
+--DISGAS
+CO2STORE
+
+METRIC
+-- Unit Convention
+ 
+--BIGMODEL
+-- DIFFUSE
+-- Enables Molecular Diffusion
+ 
+PARALLEL
+ 4 DISTRIBUTED /
+ 
+--MEMORY
+-- 1000 /
+ 
+TABDIMS
+-- Table Of Dimensions
+-- NTSFUN  NTPVT  NSSFUN  NPPVT   NTFIP
+-- ------  -----  ------ ----- -----
+     1       1      30    30    8   /
+ 
+-- NTSFUN: No. of saturation tables entered.
+-- NTPVT : No. of PVT tables entered (in the PROPS section).
+-- NSSFUN: Max. no. of saturation node in each saturation table, ie.,
+--         Max. no. of data points in each table.
+ 
+WELLDIMS
+-- Well Dimension Data
+-- NWMAXZ NCWMAX NGMAXZ NWGMAX
+-- ------ ------ ------ ------
+     145      30    3    4     /
+ 
+-- NWMAXZ: Max. no. of wells in the models.
+-- NCWMAX: Max. no. of conncections per well (i.e., no. of perforations).
+-- NGMAXZ: Max. no. of groups in the model.
+-- NWGMAX: Max. no. of wells in any group.
+ 
+AQUDIMS
+2 454/
+
+
+START
+-- Spesifies a Start Date
+-- DAY    MONTH   YEAR
+-- ----   -----   ----
+    1     JAN    1991 /
+ 
+FAULTDIM
+300 /
+ 
+NSTACK
+-- Stack Size For Linear Solver
+ 50 /
+ 
+UNIFOUT
+-- Restart And Summary Files Are To Be Unified
+ 
+UNIFIN
+-- Restart From A Unified Restart File
+ 
+--NOSIM
+
+GRIDOPTS
+ YES
+/
+
+INCLUDE
+ 'GRID.INC'
+/
+ 
+--POROSITY
+--INCLUDE
+--'../include/utsira_200_10layers_poro.dat' /
+ 
+--PORO
+-- 418338*0.35 /
+ 
+--EQUALS
+-- 'PORO' 0.01 1 127 1 183   6  6 /
+-- 'PORO' 0.01 1 127 1 183  10 10 /
+-- 'PORO' 0.01 1 127 1 183  14 14 /
+-- 'PORO' 0.01 1 127 1 183  18 18 /
+--/
+ 
+-- Removing eastern block to get rid of pvt problem at low pressure
+EQUALS
+  ACTNUM   0   66 109  75 238 1 27 /
+/
+ 
+PINCH
+0.1 /
+ 
+MAPAXES
+0.0 100.0 0.0 0.0 0.0 0.0 /
+ 
+INCLUDE
+ vette.aqunum /
+
+INCLUDE
+ vette.aqucon /
+
+INCLUDE
+ vette.multx /
+
+INCLUDE
+ vette.multy /
+INIT
+-- ===============================================================================
+EDIT
+ 
+-- Pore volume multipliers along western and northern edge of model
+--INCLUDE
+-- '../include/utsira_200_10_PVMULT_NW.dat' /
+ 
+-----------------------------------
+--===========================ls ================================================
+PROPS
+-- ===============================================================================
+ 
+
+--------------------------------------------------------------------------------
+-- Start include file ../include/UTS_S_DISGAS_rc4-5_ext.ECL
+--------------------------------------------------------------------------------
+
+
+-- =======================
+-- Pressure Dependent Data
+-- =======================
+ 
+ROCK
+-- Rock Compressibility
+-- Ref. pressure     Compressibility
+-- -------------     ---------------
+       10.0              4E-05   /
+ 
+
+ 
+-- =========================
+-- Saturation Dependent Data
+-- =========================
+SOF2
+-- Oil Saturation Functions (2-phases)
+--  So      Krog
+-- ----    -------
+   0.00    0.00000
+   0.05    0.00000
+   0.10    0.00000
+   0.15    0.00001
+   0.95    0.79562 /
+ 
+SGFN
+-- Gas Saturation Functions
+--  Sg       krg          Pc_og
+-- ----    -------        ----
+0	0		0.01246
+0.05	0.00008		0.0127465
+0.1	0.056218235	0.013033
+0.15	0.112356471	0.0133195
+0.2	0.168494706	0.013606
+0.25	0.224632941	0.0138925
+0.3	0.280771176	0.014179
+0.35	0.336909412	0.0144655
+0.4	0.393047647	0.014752
+0.45	0.449185882	0.0150385
+0.5	0.505324118	0.015325
+0.55	0.561462353	0.0156115
+0.6	0.617600588	0.017036342
+0.65	0.673738824	0.019570297
+0.7	0.729877059	0.022967703
+0.75	0.786015294	0.027755076
+0.8	0.842153529	0.034992705
+0.85	0.898291765	0.04717574
+0.9	0.95443		0.071875136
+0.95	0.95443		0.147631778
+0.9757	0.95443		0.312312124 /
+
+--------------------------------------------------------------------------------
+-- End include file ../include/UTS_S_DISGAS_rc4-5_ext.ECL
+--------------------------------------------------------------------------------
+
+
+-- 'JOH_PVT_DISGAS_UPSC270407.ECL' /
+-- '../include/JOH_PVT_NODISGAS_UPSC.ECL' /
+ 
+ 
+-- ===============================================================================
+REGIONS
+-- ==============================================================================
+ 
+-- ===============================================================================
+SOLUTION
+-- ===============================================================================
+ 
+EQUIL
+-- Equilibration Data Spesification
+-- Datum  Pi@Datum  WOC   Pc@WOC   GOC   Pc@GOC  Rs  Rv  Accuracy
+-- -----  --------  ---   ------  -----  ------  --  --  --------
+    800     81.0   5050.0    0.0    400.0    0.0    1   0          /
+ 
+ 
+RPTSOL
+-- Report Switches For SOLUTION Data
+--  p   So  Sw  Sg  Ps  xm  rst   vm    ml  rs
+--  1    2   3   4   5   6   7     8    9   10
+-- ---  --- --- --- --- --- ---   ---  ---  --
+--    1    1   0   1   1   0   3     1    4   1   /
+ FIP=2 RESTART=2 /
+ 
+ 
+RSVD
+-- Variation Of Solution GOR With Depth
+-- Depth     Rs
+-- -----  --------
+    800   0.00000
+   4150   0.00000 /
+ 
+RPTRST
+DEN /
+ 
+-- ===============================================================================
+SUMMARY
+-- ===============================================================================
+ECHO
+ 
+ 
+FPR
+ 
+FOPR
+ 
+FOPT
+ 
+FGPR
+ 
+FGPT
+ 
+FOIR
+ 
+FOIT
+ 
+FGIR
+ 
+FGIT
+ 
+FOIP
+ 
+FGIP
+ 
+WBHP
+/
+ 
+TCPU
+ 
+ELAPSED
+ 
+-- Injector
+BPR
+34 63 1 /
+/
+BOSAT
+34 63 1 /
+/
+BGSAT
+34 63 1 /
+/
+BODEN
+34 63 1 /
+/
+BGDEN
+34 63 1 /
+/
+--
+--
+BPR
+19 13 1 /
+/
+BOSAT
+19 13 1 /
+/
+BGSAT
+19 13 1 /
+/
+BODEN
+19 13 1 /
+/
+BGDEN
+19 13 1 /
+/
+-- Aquifer south
+BPR
+57 212 1 /
+/
+BOSAT
+57 212 1 /
+/
+BGSAT
+57 212 1 /
+/
+BODEN
+57 212 1 /
+/
+BGDEN
+57 212 1 /
+/
+ 
+FVIR
+ 
+FVIT
+ 
+ 
+ANQP
+/
+
+FNQR 
+/
+
+ANQR
+/
+
+RPTONLY
+RUNSUM
+EXCEL
+ 
+-- ===============================================================================
+SCHEDULE
+-- ===============================================================================
+ 
+ 
+MESSAGES
+-- Resets Message Print and Stop Limits
+-- Messages   Comments  Warnings  Problems  Error    Bug
+-- --------   --------  --------  --------  -----    ---
+    1000  1000 1000000 1000  100 100 10000000 10000000 10000000 1000000 /
+ 
+ 
+RPTSCHED
+'FIP=3' 'CPU=1' 'WELSPECS' /
+--'FIP=3' 'WELLS=5' 'SUMMARY=1' 'CPU=1' 'WELSPECS' 'NEWTON=1' /
+-- 'NOTHING' /
+-- 'RESTART=2' 'RS' 'SGAS' 'SOIL' 'PRESSURE' /
+-- Report Switches For Simulation Results
+--                        Restart files at
+--  P  So  Sw  Sg  Rs  Rv every report time  FIP  Well VFPPROD Sum. CPU    NEWTON
+-- --- --  --  --  --  -- -----------------  ---  ---- ------- ---  --- -- ------
+--    1   1   0   1   1   0        2            1     0     0    0    2   0    1  /
+ 
+RPTRST
+ BASIC=4 /
+--BASIC=3 FREQ=2 /
+--3 4* 2  /
+-- BASIC=2 PRES FIP /
+ 
+--TUNING
+--1.0 5.0 0.1 0.15 3.0 0.3 0.4 1.5/
+--1.0 0.2 5.0E-7 0.005 10.0 10.0 5.0E-6 0.05 0.001 0.5 /
+--12 1 40 1 50 8 /
+ 
+DRSDT
+0 /
+ 
+WELSPECS
+ 'ALPHA_N' 'INJ'    34   63  1*  'GAS'  0.2 /
+/
+ 
+COMPDAT
+ 'ALPHA_N' 34   63   16  19  'OPEN' 0  1*  0.2 /
+/
+ 
+ 
+WCONINJE
+ 'ALPHA_N' 'GAS'    'OPEN'    'RATE'      2202000     1*     1000   /
+/
+ 
+DATES
+1 'FEB' 1991 /
+1 'JLY' 1991 /
+1 'JAN' 1992 /
+1 'JAN' 1992 /
+/
